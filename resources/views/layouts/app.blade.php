@@ -24,6 +24,9 @@
 
       <div id="navbarExampleTransparentExample" class="navbar-menu">
         <div class="navbar-start">
+          <a class="navbar-item" href="/img">
+            Generador de imagenes
+          </a>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               Artículos
@@ -117,3 +120,4 @@
     </script>
   </body>
 </html>
+@yield('foot')

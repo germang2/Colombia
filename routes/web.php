@@ -36,3 +36,6 @@ Route::get('/insert/{articulo}/{user}/{type}', 'SharedController@insert');
 Route::post('/config/personal', 'ConfigController@personal');
 Route::post('/config/contacto', 'ConfigController@contacto');
 Route::post('/config/city', 'ConfigController@city');
+
+//generador de imagenes
+Route::get('/img', 'SiteController@img');

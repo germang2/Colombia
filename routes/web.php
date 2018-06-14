@@ -36,3 +36,7 @@ Route::get('/insert/{articulo}/{user}/{type}', 'SharedController@insert');
 Route::post('/config/personal', 'ConfigController@personal');
 Route::post('/config/contacto', 'ConfigController@contacto');
 Route::post('/config/city', 'ConfigController@city');
+
+//Socialite routes
+Route::get('auth/{provider}', 'Auth\SocialAuthController@redirectToProvider')->name('social.auth');
+Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProviderCallback');

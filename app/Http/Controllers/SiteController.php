@@ -35,4 +35,8 @@ class SiteController extends Controller{
     $cities = City::all();
     return view('config', ['user' => $user, 'states' => $states, 'cities' => $cities]);
   }
+
+  public function img(){
+    return view('comp.img');
+  }
 }

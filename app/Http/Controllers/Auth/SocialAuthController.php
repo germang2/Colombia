@@ -40,10 +40,10 @@ class SocialAuthController extends Controller
                 'name' => $social_user->name,
                 'email' => $social_user->email,
                 'password' => bcrypt($social_user->name),
-                'lastname' => $social_user->name,
+                'lastname' => "",
                 'phone' => 0,
-                'code' => "3",
-                'city' => 25,
+                'code' => uniqid(),
+                'city' => 525,
             ]);
  
             return $this->authAndRedirect($user); 

@@ -77,6 +77,7 @@
             <a href="{{ route('social.auth', 'facebook') }}">Ingresa con Facebook</a>
           </div>
         </div>
+        <!--Aquí-->
       </form>
     </div>
   </div>

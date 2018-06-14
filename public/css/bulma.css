@@ -9686,3 +9686,8 @@ label.panel-block:hover {
   display: table-cell;
 vertical-align: middle;
 }
+
+canvas {
+max-width: 100%;
+height: auto;
+}

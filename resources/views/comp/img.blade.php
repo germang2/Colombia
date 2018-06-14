@@ -21,19 +21,22 @@
       </div>
       <!--input-->
       <div class="field">
-        <div class="control has-icons-left">
-          <div class="select is-fullwidth">
-            <select id="imagenselect">
-              <option selected value="" disabled>Elige un fondo</option>
-              <option value="1">Imagen 1</option>
-              <option value="2">Imagen 2</option>
-              <option value="3">Imagen 3</option>
-            </select>
-          </div>
-          <div class="icon is-small is-left">
-            <i class="fas fa-image"></i>
-          </div>
+      <label>Elige un fondo</label>
+      <br>
+      <br>
+      <div class="columns">
+        <div class="column">
+          <img src="{{asset('im/generador/petropresidente.png')}}" alt="petropresidente" id="petropresidente.png" class="imagen">
         </div>
+        <div class="column">
+          <img src="{{asset('im/generador/fondo2.png')}}" alt="fondo2" id="fondo2.png" class="imagen">
+        </div>
+        <div class="column">
+          <img src="{{asset('im/generador/fondo3.png')}}" alt="fond3" id="fondo3.png" class="imagen">
+        </div>
+        <img type="hidden" id="imageninicial">
+      </div>
+      <!--Imagenes-->
       </div>
       <!--input-->
       <a class="button is-link" id="generarimagen" onclick="textChangeListener()">Generar imagen</a>
@@ -41,7 +44,6 @@
       <!--botones-->
       <br>
       <br>
-      <img src="{{asset('im/generador/petropresidente.png')}}" alt="petropresidente" id="imageninicial">
       <canvas id="canvas" width="800" height="800" download="petropresidente" style="display: none">
       </canvas>
       <!--imagen y canvas-->
@@ -58,20 +60,15 @@
 @section('foot')
 <script type="text/javascript">
     $(document).ready(function(){
-        $('#imagenselect').on("change", function(){
-            var value = this.value;
-            var imagenname = "{{asset('im/generador')}}/";
-            if (value == 1) {
-                imagenname = imagenname + "petropresidente.png";
-            } else if (value == 2) {
-                imagenname = imagenname + "fondo2.jpg";
-            } else if (value == 3) {
-                imagenname = imagenname + "fondo3.jpg";
-            }
+        $('.imagen').click(function(){
+            var id = this.id;
+            var imagenname = "{{asset('im/generador')}}/" + id;
             document.getElementById("canvas").setAttribute("style", "display:none");
             document.getElementById("guardar").setAttribute("style", "display:none");
-            document.getElementById("imageninicial").setAttribute("style", "");
+            document.getElementById("imageninicial").setAttribute("style", "display:none");
             document.getElementById("imageninicial").setAttribute("src", imagenname);
+            $(".imagen").attr('style', 'border:none;');
+            document.getElementById(id).setAttribute('style','border:solid; color:red');
         });
     });
 </script>

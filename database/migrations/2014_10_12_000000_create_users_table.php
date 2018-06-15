@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->char('code', 23)->unique();
             $table->char('godfather', 23)->nullable();
+            $table->boolean('witness')->default(0);
             $table->integer('city');
             //$table->foreign('city')->references('id')->on('cities');
             //$table->foreign('godfather')->references('code')->on('users');

@@ -32,4 +32,11 @@ class ConfigController extends Controller{
     $user->save();
     return redirect('/perfil');
   }
+
+  public function testigo(Request $request){
+    $user = Auth::user();
+    $user->witness = $request->witness;
+    $user->save();
+    return redirect('/perfil');
+  }
 }

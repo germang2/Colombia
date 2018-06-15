@@ -176,6 +176,33 @@ break;
       </div>
       <!--Secciones-->
     </div>
+    <div class="box">
+      <form class="" action="config/testigo" method="post">
+        @csrf
+        <!--Aquí-->
+        <div class="field">
+          <div class="control has-icons-left">
+            <div class="select is-fullwidth">
+              <select name="witness" required>
+                <option selected value="" disabled>-¿Es testigo electoral?-</option>
+                <option value="0">No</option>
+                <option value="0">Si</option>
+              </select>
+            </div>
+            <div class="icon is-small is-left">
+              <i class="fas fa-sticky-note"></i>
+            </div>
+          </div>
+        </div>
+        <!--aquí-->
+        <div class="field">
+          <div class="control">
+            <button type="submit" class="button is-link">Unirme</button>
+          </div>
+        </div>
+        <!--aquí-->
+      </form>
+    </div>
   </div>
 </div>
 @endsection

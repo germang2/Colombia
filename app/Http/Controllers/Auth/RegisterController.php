@@ -53,6 +53,7 @@ class RegisterController extends Controller
             'lastname' => 'required|string|max:100',
             'phone' => 'required|integer|digits_between:7,30',
             'godfather' => 'nullable|string|exists:users,code',
+            'witness' => 'nullable',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ]);

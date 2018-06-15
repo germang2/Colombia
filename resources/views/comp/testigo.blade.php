@@ -49,31 +49,8 @@ break;
       <p class="subtitle">
         Diligencia todos los campos
       </p>
-      <form name="frm" class="" action="{{ route('register') }}" method="post">
+      <form name="frm" class="" action="/reporte/registro" method="post">
         @csrf
-        <div class="field">
-          <div class="control has-icons-left">
-            <input id="name" type="text" class="input{{ $errors->has('name') ? ' is-danger' : '' }}" name="name" placeholder="Nombres" value="{{ old('name') }}" maxlength="100" required autofocus>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </div>
-          @if ($errors->has('name'))
-            <p class="help is-danger">{{ $errors->first('name') }}</p>
-          @endif
-        </div>
-        <!--Aquí-->
-        <div class="field">
-          <div class="control has-icons-left">
-            <input id="lastname" type="text" class="input{{ $errors->has('lastname') ? ' is-danger' : '' }}" name="lastname" placeholder="Apellidos" value="{{ old('lastname') }}" maxlength="100" required>
-            <span class="icon is-small is-left">
-              <i class="fas fa-user"></i>
-            </span>
-          </div>
-          @if ($errors->has('lastname'))
-            <p class="help is-danger">{{ $errors->first('lastname') }}</p>
-          @endif
-        </div>
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
@@ -108,89 +85,104 @@ break;
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
-            <input id="phone" class="input{{ $errors->has('phone') ? ' is-danger' : '' }}" type="number" name="phone" placeholder="Teléfono" value="{{ old('phone') }}" maxlength="30" required>
+            <input id="zona" class="input{{ $errors->has('zona') ? ' is-danger' : '' }}" type="number" name="zona" placeholder="zona" value="{{ old('zona') }}" maxlength="5" required>
             <span class="icon is-small is-left">
-              <i class="fas fa-phone"></i>
+              <i class="fas fa-globe"></i>
             </span>
           </div>
-          @if ($errors->has('phone'))
-            <p class="help is-danger">{{ $errors->first('phone') }}</p>
+          @if ($errors->has('zona'))
+            <p class="help is-danger">{{ $errors->first('zona') }}</p>
           @endif
         </div>
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
-            <input id="godfather" type="text" class="input{{ $errors->has('godfather') ? ' is-danger' : '' }}" name="godfather" placeholder="Código de quien lo refirió (Opcional)" value="{{ old('godfather') }}" maxlength="23">
+            <input id="puesto" class="input{{ $errors->has('puesto') ? ' is-danger' : '' }}" type="text" name="puesto" placeholder="puesto" value="{{ old('puesto') }}" maxlength="200" required>
             <span class="icon is-small is-left">
-              <i class="fas fa-tag"></i>
+              <i class="fas fa-map-marker-alt"></i>
             </span>
           </div>
-          @if ($errors->has('godfather'))
-            <p class="help is-danger">{{ $errors->first('godfather') }}</p>
+          @if ($errors->has('puesto'))
+            <p class="help is-danger">{{ $errors->first('puesto') }}</p>
           @endif
         </div>
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
-            <div class="select is-fullwidth">
-              <select name="witness" required>
-                <option selected value="" disabled>-¿Es testigo electoral?-</option>
-                <option value="0">No</option>
-                <option value="0">Si</option>
-              </select>
-            </div>
-            <div class="icon is-small is-left">
-              <i class="fas fa-sticky-note"></i>
-            </div>
-          </div>
-        </div>
-        <!--Aquí-->
-        <div class="field">
-          <div class="control has-icons-left">
-            <input id="email" class="input{{ $errors->has('email') ? ' is-danger' : '' }}" type="email" name="email" placeholder="Correo electrónico" value="{{ old('email') }}" required>
+            <input id="mesa" class="input{{ $errors->has('mesa') ? ' is-danger' : '' }}" type="number" name="mesa" placeholder="mesa" value="{{ old('mesa') }}" maxlength="4" required>
             <span class="icon is-small is-left">
-              <i class="fas fa-envelope"></i>
+              <i class="fas fa-pencil-alt"></i>
             </span>
           </div>
-          @if ($errors->has('email'))
-            <p class="help is-danger">{{ $errors->first('email') }}</p>
+          @if ($errors->has('mesa'))
+            <p class="help is-danger">{{ $errors->first('mesa') }}</p>
           @endif
         </div>
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
-            <input id="password" class="input{{ $errors->has('password') ? ' is-danger' : '' }}" type="password" name="password" placeholder="Contraseña" required>
+            <input id="duque" class="input{{ $errors->has('duque') ? ' is-danger' : '' }}" type="number" name="duque" placeholder="Votos por Ivan Duque" value="{{ old('duque') }}" maxlength="4" required>
             <span class="icon is-small is-left">
-              <i class="fas fa-key"></i>
+              <i class="fas fa-piggy-bank"></i>
             </span>
           </div>
-          @if ($errors->has('password'))
-            <p class="help is-danger">{{ $errors->first('password') }}</p>
+          @if ($errors->has('duque'))
+            <p class="help is-danger">{{ $errors->first('duque') }}</p>
           @endif
         </div>
         <!--Aquí-->
         <div class="field">
           <div class="control has-icons-left">
-            <input id="password-confirm" class="input" type="password" name="password_confirmation" placeholder="Repetir Contraseña" required>
+            <input id="petro" class="input{{ $errors->has('petro') ? ' is-danger' : '' }}" type="number" name="petro" placeholder="Votos por Gustavo Petro" value="{{ old('petro') }}" maxlength="4" required>
             <span class="icon is-small is-left">
-              <i class="fas fa-key"></i>
+              <i class="fas fa-piggy-bank"></i>
             </span>
           </div>
+          @if ($errors->has('petro'))
+            <p class="help is-danger">{{ $errors->first('petro') }}</p>
+          @endif
+        </div>
+        <!--Aquí-->
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="blanco" class="input{{ $errors->has('blanco') ? ' is-danger' : '' }}" type="number" name="blanco" placeholder="Votos en blanco" value="{{ old('blanco') }}" maxlength="4" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-piggy-bank"></i>
+            </span>
+          </div>
+          @if ($errors->has('blanco'))
+            <p class="help is-danger">{{ $errors->first('blanco') }}</p>
+          @endif
+        </div>
+        <!--Aquí-->
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="nulo" class="input{{ $errors->has('nulo') ? ' is-danger' : '' }}" type="number" name="nulo" placeholder="Votos nulos" value="{{ old('nulo') }}" maxlength="4" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-piggy-bank"></i>
+            </span>
+          </div>
+          @if ($errors->has('nulo'))
+            <p class="help is-danger">{{ $errors->first('nulo') }}</p>
+          @endif
+        </div>
+        <!--Aquí-->
+        <div class="field">
+          <div class="control has-icons-left">
+            <input id="total" class="input{{ $errors->has('total') ? ' is-danger' : '' }}" type="number" name="total" placeholder="Total de votos" value="{{ old('total') }}" maxlength="4" required>
+            <span class="icon is-small is-left">
+              <i class="fas fa-piggy-bank"></i>
+            </span>
+          </div>
+          @if ($errors->has('total'))
+            <p class="help is-danger">{{ $errors->first('total') }}</p>
+          @endif
         </div>
         <!--Aquí-->
         <div class="field">
           <div class="control">
-            <button type="submit" class="button is-link">Unirme</button>
+            <button type="submit" class="button is-link">Registrar</button>
           </div>
-        </div>
-        <!--Aquí-->
-        <div class="field">
-          <a class="button is-info" href="{{ route('social.auth', 'facebook') }}">
-            <span class="icon">
-              <i class="fab fa-facebook"></i>
-            </span>
-            <span>Ingresa con Facebook</span>
-          </a>
         </div>
         <!--Aquí-->
       </form>

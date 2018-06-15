@@ -38,7 +38,7 @@ return [
     'facebook' => [
         'client_id' => '963870980439487',
         'client_secret' => '3b93347890357e7178bcc348cbd0a4bb',
-        'redirect' => 'http://localhost:8000/auth/facebook/callback'
+        'redirect' => 'https://www.accioncolombia.com.co/auth/facebook/callback'
     ]
 
 ];

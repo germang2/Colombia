@@ -27,6 +27,9 @@
           <a class="navbar-item" href="/img">
             Generador de imagenes
           </a>
+          <a class="navbar-item" href="/reporte">
+            Reportes E-14
+          </a>
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               Artículos

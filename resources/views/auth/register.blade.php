@@ -169,10 +169,13 @@ break;
           </div>
         </div>
         <!--Aquí-->
-        <div class="field is-grouped">
-          <div class="box has-text-centered">
-            <a href="{{ route('social.auth', 'facebook') }}">Ingresa con Facebook</a>
-          </div>
+        <div class="field">
+          <a class="button is-info" href="{{ route('social.auth', 'facebook') }}">
+            <span class="icon">
+              <i class="fab fa-facebook"></i>
+            </span>
+            <span>Ingresa con Facebook</span>
+          </a>
         </div>
         <!--Aquí-->
       </form>

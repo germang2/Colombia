@@ -39,8 +39,14 @@
       <!--Imagenes-->
       </div>
       <!--input-->
-      <a class="button is-link" id="generarimagen" onclick="textChangeListener()">Generar imagen</a>
-      <a class="button is-success" id="guardar" style="display: none" download="imagen.png">Descargar</a>
+      <div class="field is-grouped">
+        <div class="control">
+          <a class="button is-link" id="generarimagen" onclick="textChangeListener()">Generar imagen</a>
+        </div>
+        <div class="control">
+          <a class="button is-success" id="guardar" style="display: none" download="imagen.png">Descargar</a>
+        </div>
+      </div>
       <!--botones-->
       <br>
       <br>

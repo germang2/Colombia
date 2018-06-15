@@ -39,4 +39,8 @@ class SiteController extends Controller{
   public function img(){
     return view('comp.img');
   }
+
+  public function privacidad(){
+    return view('comp.privacidad');
+  }
 }

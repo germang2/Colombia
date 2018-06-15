@@ -45,3 +45,5 @@ Route::get('auth/{provider}/callback', 'Auth\SocialAuthController@handleProvider
 //generador de imagenes
 Route::get('/img', 'SiteController@img');
 
+//politica de privaciodad
+Route::get('/privacidad', 'SiteController@privacidad');

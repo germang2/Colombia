@@ -98,6 +98,16 @@
         @yield('content')
       </div>
     </section>
+    <footer class="footer">
+      <div class="container">
+        <div class="content has-text-centered">
+          <p>
+            <a href="https://www.accioncolombia.com.co/">Acción Colombia</a> - <strong>&copy; 2018</strong>
+            - <a href="/privacidad">política de Privacidad</a>
+          </p>
+        </div>
+      </div>
+    </footer>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         // Get all "navbar-burger" elements

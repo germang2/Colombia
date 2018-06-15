@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->char('code', 23)->unique();
             $table->char('godfather', 23)->nullable();
             $table->integer('city');
-            $table->foreign('city')->references('id')->on('cities');
-            $table->foreign('godfather')->references('code')->on('users');
+            //$table->foreign('city')->references('id')->on('cities');
+            //$table->foreign('godfather')->references('code')->on('users');
             $table->rememberToken();
             $table->timestamps();
         });

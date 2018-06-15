@@ -17,7 +17,7 @@ class CreateCitiesTable extends Migration
             $table->increments('id');
             $table->smallInteger('state');
             $table->char('name', 32);
-            $table->foreign('state')->references('id')->on('states');
+            //$table->foreign('state')->references('id')->on('states');
             $table->timestamps();
         });
     }

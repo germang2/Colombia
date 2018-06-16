@@ -59,12 +59,14 @@ class SocialAuthController extends Controller
         $status = 400;
         $data = [];
         $error = "";
-
         if(strlen($req["facebook_token"]) > 0 ) {
             $token = $req["facebook_token"];
-            if (count(User::where('facebook_token', $token)->get()) > 0) {
+            $bf_user = Socialite::driver('facebook')->userFromToken($token);
+            if (count(User::where('email', $bf_user->email)->get()) > 0) {
+                $user = User::where('email', $bf_user->email)->first();
+                $user->facebook_token = $token;
+                $user->save();
                 $status = 200;
-                $user = User::where('facebook_token', $token)->first();
                 $data = [
                     'id'    =>$user->id,
                     'name'  =>$user->name,

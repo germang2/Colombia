@@ -16,3 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/loginFacebook', 'Auth\SocialAuthController@loginfacebookapi')->name('loginfacebookapi');
+Route::post('/loginapi', 'UserController@loginapi')->name('loginapi');
+Route::post('/registerapi', 'UserController@registerapi')->name('registerapi');

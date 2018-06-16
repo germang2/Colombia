@@ -136,7 +136,7 @@ break;
               <select name="witness" required>
                 <option selected value="" disabled>-¿Es testigo electoral?-</option>
                 <option value="0">No</option>
-                <option value="0">Si</option>
+                <option value="1">Si</option>
               </select>
             </div>
             <div class="icon is-small is-left">

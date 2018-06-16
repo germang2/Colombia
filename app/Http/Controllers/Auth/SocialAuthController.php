@@ -56,63 +56,75 @@ class SocialAuthController extends Controller
     // Login with facebook through api
     public function loginfacebookapi(Request $request) {
         $req = $request->all();
-        $token = $req["access_token"];
         $status = 400;
         $data = [];
         $error = "";
 
-        if (count(User::where('facebook_token', $token)->get()) > 0) {
-            $status = 200;
-            $user = User::where('facebook_token', $token)->first();
-            $data = [
-                'id'    => $user->id,
-                'name'  => $user->name,
-                'email' => $user->email,
-                'lastname' => $user->lastname,
-                'phone' => $user->phone,
-                'city' => $user->city,
-                'godfather' => $user->godfather,
-                'witness' => $user->witness,
-                'facebook_token' => $user->facebook_token
+        if(strlen($req["facebook_token"]) > 0 ) {
+            $token = $req["facebook_token"];
+            if (count(User::where('facebook_token', $token)->get()) > 0) {
+                $status = 200;
+                $user = User::where('facebook_token', $token)->first();
+                $data = [
+                    'id'    =>$user->id,
+                    'name'  =>$user->name,
+                    'email' =>$user->email,
+                    'lastname' =>$user->lastname,
+                    'phone' =>$user->phone,
+                    'city' =>$user->city,
+                    'godfather' =>$user->godfather,
+                    'witness' =>$user->witness,
+                    'facebook_token' =>$user->facebook_token,
+                    'token' =>$user->token
+    
+                ];
+                $message = "Usuario correcto de facebook";
+                return response()->json([
+                    'message' => $message,
+                    'data'   => $data, 
+                ], $status );
+            } else {
 
-            ];
-            return response()->json([
-                'data'   => $data, 
-            ], $status );
+                $bf_user = Socialite::driver('facebook')->userFromToken($token);
+                // Create the user
+                $user = User::create([
+                    'name'     => $bf_user->name,
+                    'email'    => $bf_user->email,
+                    'lastname' => "",
+                    'phone'    => 0,
+                    'code'     => uniqid(),
+                    'city'     => 525,
+                    'facebook_token' => $token,
+                ]);
+                $data = [
+                    'id'       => $user->id,
+                    'name'     => $user->name,
+                    'email   ' => $user->email,
+                    'lastname' => $user->lastname,
+                    'phone'    => $user->phone,
+                    'code'     => $user->code,
+                    'city'     => $user->city,
+                    'godfather' => $user->godfather,
+                    'witness' => $user->witness,
+                    'facebook_token' => $user->facebook_token
+    
+                ];
+                $status = 201;
+                $message = "Usuario registrado con exito";
+                return response()->json([ 
+                    'message' => $message,
+                    'data'    => $data, 
+                ], $status);
+            }
         } else {
-
-            $bf_user = Socialite::driver('facebook')->userFromToken($token);
-            // Create the user
-            $user = User::create([
-                'name'     => $bf_user->name,
-                'email'    => $bf_user->email,
-                'lastname' => "",
-                'phone'    => 0,
-                'code'     => uniqid(),
-                'city'     => 525,
-                'facebook_token' => $token,
-            ]);
-            $data = [
-                'id'       => $user->id,
-                'name'     => $user->name,
-                'email   ' => $user->email,
-                'lastname' => $user->lastname,
-                'phone'    => $user->phone,
-                'code'     => $user->code,
-                'city'     => $user->city,
-                'godfather' => $user->godfather,
-                'witness' => $user->witness,
-                'facebook_token' => $user->facebook_token
-
-            ];
-            $status = 201;
-            $message = "Usuario registrado con exito";
-            return response()->json([ 
-                'message' => $message,
-                'data'    => $data, 
+            $status = 400;
+            $data = [];
+            $message = "No se recibió el token de facebook";
+            return response()->json([
+                'message'=>$message,
+                'data'=>$data
             ], $status);
         }
-
         
     }
  

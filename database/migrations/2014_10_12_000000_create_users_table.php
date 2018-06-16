@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('witness')->default(0);
             $table->integer('city');
             $table->string('facebook_token')->unique()->nullable();
+            $table->string('token')->unique()->nullable();
             //$table->foreign('city')->references('id')->on('cities');
             //$table->foreign('godfather')->references('code')->on('users');
             $table->rememberToken();

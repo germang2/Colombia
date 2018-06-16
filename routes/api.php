@@ -21,3 +21,7 @@ Route::post('/loginFacebook', 'Auth\SocialAuthController@loginfacebookapi')->nam
 Route::post('/loginapi', 'UserController@loginapi')->name('loginapi');
 Route::post('/registerapi', 'UserController@registerapi')->name('registerapi');
 Route::get('/getusers/{cadena}', 'UserController@getusers');
+
+// Articles API Rest
+Route::get('/getarticlesapi', 'ArticleController@getArticles');
+Route::get('/getarticleapi/{id}', 'ArticleController@getArticle');

@@ -50,5 +50,5 @@ Route::get('/img', 'SiteController@img');
 Route::get('/privacidad', 'SiteController@privacidad');
 
 //registro de E-14
-Route::get('/reporte', 'ReportController@vista');
-Route::post('/reporte/registro', 'ReportController@registro');
+//Route::get('/reporte', 'ReportController@vista');
+//Route::post('/reporte/registro', 'ReportController@registro');

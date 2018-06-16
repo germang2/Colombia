@@ -15,8 +15,8 @@ class CreateLinksTable extends Migration
     {
         Schema::create('links', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('article');
-            $table->integer('user');
+            $table->integer('article')->unsigned();
+            $table->integer('user')->unsigned();
             $table->ipAddress('visitor');
             $table->integer('origin');
             $table->foreign('user')->references('id')->on('users');

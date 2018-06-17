@@ -19,6 +19,7 @@ class CreateArticlesTable extends Migration
             $table->text('content');
             $table->string('video');
             $table->date('date')->default(date("Y-m-d H:m:s"));
+            $table->bigInteger('seen')->default(0);
             $table->timestamps();
         });
     }

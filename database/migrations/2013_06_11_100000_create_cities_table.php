@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('cities', function (Blueprint $table) {
             $table->increments('id');
-            $table->smallInteger('state');
+            $table->Integer('state');
             $table->char('name', 32);
             //$table->foreign('state')->references('id')->on('states');
             $table->timestamps();

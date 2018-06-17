@@ -46,6 +46,8 @@ class ArticleController extends Controller{
       $user = 0;
     }
     $article = Article::find($articulo);
+    $article->seen += 1;
+    $article->save();
     return view('articles.showarticle')->with('article', $article);
   }
 
@@ -62,12 +64,20 @@ class ArticleController extends Controller{
     $message = "Lista de articulos";
     $data = [];
     foreach($articles as $article) {
-      $a = ["id"=>$article->id, "title"=>$article->title, "content"=>$article->content, "date"=>$article->date];
+      $a = [
+        "id"=>$article->id, 
+        "title"=>$article->title, 
+        "content"=>$article->content, 
+        "date"=>$article->date,
+        "video"=>$article->video,
+        "seen"=>$article->seen,
+        "url"=>"https://www.accioncolombia.com.co/articulo/" . $article->id
+      ];
       array_push($data, $a);
     }
     return response()->json([
       'message'=>$message,
-      'data'=>$articles
+      'data'=>$data
     ],200);
   }
 
@@ -89,6 +99,7 @@ class ArticleController extends Controller{
         'content'=>$article->content,
         'video'=>$article->video,
         'date'=>$article->date,
+        'seen'=>$article->seen,
         'url'=>$url
       ];
       return response()->json([

@@ -16,8 +16,10 @@ class CreateSharedsTable extends Migration
         Schema::create('shareds', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('article')->unsigned();
-            $table->integer('user')->unsigned();
-            $table->integer('type')->nullable();
+            $table->integer('user')->unsigned()->nullable();
+            $table->string('type');
+            $table->integer('shared')->default(0);
+            $table->integer('left')->default(200);
             $table->ipAddress('ip')->nullable();
             $table->foreign('article')->references('id')->on('articles');
             $table->foreign('user')->references('id')->on('users');

@@ -18,4 +18,5 @@
 <p>
     {{ $article->content }}
 </p>
+<p>Visto: {{$article->seen}}</p>
 @endsection

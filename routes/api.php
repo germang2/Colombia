@@ -25,3 +25,5 @@ Route::get('/getusers/{cadena}', 'UserController@getusers');
 // Articles API Rest
 Route::get('/getarticlesapi', 'ArticleController@getArticles');
 Route::get('/getarticleapi/{id}', 'ArticleController@getArticle');
+
+Route::post('/sharedarticle', 'SharedController@shared');

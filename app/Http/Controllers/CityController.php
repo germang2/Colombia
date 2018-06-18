@@ -15,10 +15,10 @@ class CityController extends Controller
                 'data'=>[]
             ], 400);
         }
-        $cities =  City::where('name', 'like', '%' . $string . '%')->limit(5)->get();
+        $cities =  City::where('name', 'like', '%' . trim($string) . '%')->limit(5)->get();
         $data = [];
         foreach ($cities as $city) {
-            $data_city = ["id" => $city->id, "name" => $city->name . " - " . $city->getState->name];
+            $data_city = ["id" => $city->id, "name" => trim($city->name) . " - " . trim($city->getState->name)];
             array_push($data, $data_city);
         }
 

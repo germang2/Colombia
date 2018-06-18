@@ -86,6 +86,7 @@ class ArticleController extends Controller{
     } else {
       $user = User::where('token', $token)->first();
     }
+
     return $user;
   }
 
@@ -107,12 +108,12 @@ class ArticleController extends Controller{
   public function getMetricsArticle($user, $article) {
     
     $metrics = Shared::where('article', $article->id)->where('user', $user->id)->get();
-    $data_metrics = [];
+    $social_red_array = [];
     foreach ($metrics as $metric) {
-      $social_red_data = ["social_red" => $metric->type, "shared" => $metric->shared, "left" => $metric->left];
-      array_push($data_metrics, $social_red_data);
+      $social_red_data = ["shared" => $metric->shared, "left" => $metric->left];
+      $social_red_array[$metric->type] = $social_red_data;
     }
-    return $data_metrics;
+    return $social_red_array;
     
   }
 
@@ -122,10 +123,22 @@ class ArticleController extends Controller{
     $user = "";
     // Check if there is a facebook token or user token for add in response the metrics of that user
     if ($request->facebook_token or $request->token) {
+      $token = "";
+      $type_token;
       if ($request->facebook_token) {
+        $token = $request->facebook_token;
+        $type_token = "facebook_token";
         $user = $this->getUserByToken($request->facebook_token, "facebook_token");
       } else {
-        $user = $this->getUserByToken($request->token, "token");
+        $token = $request->token;
+        $type_token = "token";
+        $user = $this->getUserByToken($token, "token");
+      }
+      if (!$user or $user == "") {
+        return response()->json([
+          'message'=>'Usuario no encontrado',
+          'data'=>["token"=>$token, "type_token"=>$type_token]
+        ], 404);
       }
       // get all articles for check if the metric already exist for that user
       $articles = Article::all();

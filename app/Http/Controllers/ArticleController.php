@@ -8,6 +8,7 @@ use App\User;
 use App\Link;
 use Auth;
 use App\Shared;
+use Socialite;
 
 class ArticleController extends Controller{
 
@@ -71,7 +72,7 @@ class ArticleController extends Controller{
 
   public function getUserByToken($token, $type) {
     $user = "";
-    if ($token == "facebook_token") {
+    if ($type == "facebook_token") {
       // Search the facebook user
       $bf_user = Socialite::driver('facebook')->userFromToken($token);
       // Then search the user in DB, using email. This is necesary becasuse the facebook token can change
@@ -81,6 +82,7 @@ class ArticleController extends Controller{
         $user->facebook_token = $bf_user->token;
         $user->save();
       }
+      
     } else {
       $user = User::where('token', $token)->first();
     }
@@ -142,7 +144,7 @@ class ArticleController extends Controller{
       "seen"=>$article->seen,
       "url"=>"https://www.accioncolombia.com.co/articulo/" . $article->id
     ];
-    
+
     if ($user != "") {
       $data_metrics = $this->getMetricsArticle($user, $article);
       $a["social_red_data"] = $data_metrics;

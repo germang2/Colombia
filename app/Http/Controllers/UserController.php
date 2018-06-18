@@ -94,8 +94,8 @@ class UserController extends Controller
                 'token' =>$user->token
             ];
             return response()->json([
-                $message,
-                $data
+                'message'=>$message,
+                'data'=>$data
             ], $status);
         } catch (Exception $e) {
             return response()->json($e->getMessage());

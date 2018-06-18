@@ -6,4 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class State extends Model{
   protected $fillable = ['name'];
+
+  public function getCities() {
+    return $this->hasMany('App\City', 'state');
+  }
 }

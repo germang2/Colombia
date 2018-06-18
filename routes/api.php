@@ -27,3 +27,5 @@ Route::get('/getarticlesapi', 'ArticleController@getArticles');
 Route::get('/getarticleapi/{id}', 'ArticleController@getArticle');
 
 Route::post('/sharedarticle', 'SharedController@shared');
+
+Route::get('/getcitiesapi/{string}', 'CityController@getCitiesapi');

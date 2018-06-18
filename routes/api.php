@@ -23,9 +23,10 @@ Route::post('/registerapi', 'UserController@registerapi')->name('registerapi');
 Route::get('/getusers/{cadena}', 'UserController@getusers');
 
 // Articles API Rest
-Route::get('/getarticlesapi', 'ArticleController@getArticles');
-Route::get('/getarticleapi/{id}', 'ArticleController@getArticle');
+Route::post('/getarticlesapi', 'ArticleController@getArticles');
+Route::post('/getarticleapi/{id}', 'ArticleController@getArticle');
 
 Route::post('/sharedarticle', 'SharedController@shared');
 
 Route::get('/getcitiesapi/{string}', 'CityController@getCitiesapi');
+

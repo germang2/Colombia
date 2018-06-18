@@ -7,6 +7,7 @@ use App\Article;
 use App\User;
 use App\Link;
 use Auth;
+use App\Shared;
 
 class ArticleController extends Controller{
 
@@ -58,27 +59,102 @@ class ArticleController extends Controller{
     return view('articles.showarticle')->with('article', $article);
   }
 
+  public function createMetric($user_id, $article_id, $social_red) {
+    Shared::create([
+      "article"=>$article_id,
+      "user"=>$user_id,
+      "type"=>$social_red,
+      "shared"=>1,
+      "left"=>199
+      ]);
+  }
+
+  public function getUserByToken($token, $type) {
+    $user = "";
+    if ($token == "facebook_token") {
+      // Search the facebook user
+      $bf_user = Socialite::driver('facebook')->userFromToken($token);
+      // Then search the user in DB, using email. This is necesary becasuse the facebook token can change
+      $user = User::where('email', $bf_user->email)->first();
+      // if Facebook token is diferent of user token in DB, will be update in DB
+      if ($bf_user->token != $user->facebook_token) {
+        $user->facebook_token = $bf_user->token;
+        $user->save();
+      }
+    } else {
+      $user = User::where('token', $token)->first();
+    }
+    return $user;
+  }
+
+  public function checkAndCreateMetric($articles, $user) {
+    $social_red = ["whatsapp", "facebook", "twitter"];
+    // Verify if the user aleady have the metric for each article with each social red
+    foreach ($articles as $article) {
+      foreach ($social_red as $sr) {
+        // If the metric doesn't exist, will be created with the function createMetric()
+        $user_id = $user->id;
+        $article_id = $article->id;
+        if (!Shared::where('article', $article->id)->where('type', $sr)->where('user', $user->id)->first()) {
+          $this->createMetric($user_id, $article_id, $sr);
+        }
+      }
+    }
+  }
+
+  public function getMetricsArticle($user, $article) {
+    
+    $metrics = Shared::where('article', $article->id)->where('user', $user->id)->get();
+    $data_metrics = [];
+    foreach ($metrics as $metric) {
+      $social_red_data = ["social_red" => $metric->type, "shared" => $metric->shared, "left" => $metric->left];
+      array_push($data_metrics, $social_red_data);
+    }
+    return $data_metrics;
+    
+  }
+
   public function getArticles(Request $request) {
-    $req = $request->all();
     $articles = Article::all();
+
+    $user = "";
+    // Check if there is a facebook token or user token for add in response the metrics of that user
+    if ($request->facebook_token or $request->token) {
+      if ($request->facebook_token) {
+        $user = $this->getUserByToken($request->facebook_token, "facebook_token");
+      } else {
+        $user = $this->getUserByToken($request->token, "token");
+      }
+      // get all articles for check if the metric already exist for that user
+      $articles = Article::all();
+      $this->checkAndCreateMetric($articles, $user);
+    }
+
     $message = "Lista de articulos";
     $data = [];
     foreach($articles as $article) {
       $a = [
-        "id"=>$article->id, 
-        "title"=>$article->title, 
-        "content"=>$article->content, 
-        "date"=>$article->date,
-        "video"=>$article->video,
-        "seen"=>$article->seen,
-        "url"=>"https://www.accioncolombia.com.co/articulo/" . $article->id
-      ];
-      array_push($data, $a);
+      "id"=>$article->id, 
+      "title"=>$article->title, 
+      "content"=>$article->content, 
+      "date"=>$article->date,
+      "video"=>$article->video,
+      "seen"=>$article->seen,
+      "url"=>"https://www.accioncolombia.com.co/articulo/" . $article->id
+    ];
+    
+    if ($user != "") {
+      $data_metrics = $this->getMetricsArticle($user, $article);
+      $a["social_red_data"] = $data_metrics;
+    }
+
+    array_push($data, $a);
     }
     return response()->json([
       'message'=>$message,
       'data'=>$data
     ],200);
+    
   }
 
   public function getArticle(Request $request, $id) {
@@ -88,6 +164,21 @@ class ArticleController extends Controller{
         'data'=>[]
       ],400);
     }
+    
+    $user = "";
+    // Check if there is a facebook token or user token for add in response the metrics of that user
+    if ($request->facebook_token or $request->token) {
+      if ($request->facebook_token) {
+        $user = $this->getUserByToken($request->facebook_token, "facebook_token");
+      } else {
+        $user = $this->getUserByToken($request->token, "token");
+      }
+      // get all articles for check if the metric already exist for that user
+      $articles = Article::all();
+      $this->checkAndCreateMetric($articles, $user);
+    }
+
+    // get the requested article
     $article = Article::where('id', $id)->first();
     if($article){
 
@@ -102,6 +193,13 @@ class ArticleController extends Controller{
         'seen'=>$article->seen,
         'url'=>$url
       ];
+
+      // if there exist an user, now searchs the metrics for that article and user
+      if ($user != "") {
+        $data_metrics = $this->getMetricsArticle($user, $article);
+        $data["social_red_data"] = $data_metrics;
+      }
+
       return response()->json([
         'message'=>$message,
         'data'=>$data

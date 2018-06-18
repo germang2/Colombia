@@ -12,4 +12,8 @@ class Article extends Model
         'title', 'content', 'video', 'date', 'seen'
     ];
 
+    public function getShareds() {
+        return $this->hasMany('App\Shared', 'article');
+    }
+
 }

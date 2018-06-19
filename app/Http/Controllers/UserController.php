@@ -108,8 +108,13 @@ class UserController extends Controller
             $query = User::where('name', 'like', '%' . $cadena . '%')->orwhere('lastname', 'like', '%' . $cadena . '%')->get();
             $status = 200;
             $message = "Lista de usuarios";
+            $users = [];
+            foreach ($query as $user) {
+                $array_data = ["id" => $user->id, "name" => trim($user->name) . " " . trim($user->lastname)];
+                array_push($users, $array_data);
+            }
             $data = [
-                'users' =>$query
+                'users' =>$users
             ];
             return response()->json([
                 'message' =>$message,

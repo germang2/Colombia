@@ -25,8 +25,10 @@
                   @auth
                     <a class="button is-link" href="{{ url('/home') }}">Mi perfil</a>
                   @else
+                  <!--
                     <a class="button is-link" href="{{ route('login') }}">Iniciar Sesión</a>
                     <a class="button is-link" href="{{ route('register') }}">Unirme</a>
+                  -->
                   @endauth
                 @endif
                     <a class="button is-danger" href="/articulos">Artículos</a>

@@ -48,6 +48,7 @@
             <div class="field is-grouped">
               @guest
                 <p class="control">
+                  <!--
                   <a class="button is-light" href="{{ route('login') }}">
                     <span class="icon">
                       <i class="fas fa-user"></i>
@@ -56,8 +57,10 @@
                       Inicia sesión
                     </span>
                   </a>
+                  -->
                 </p>
                 <p class="control">
+                <!--
                   <a class="button is-light" href="{{ route('register') }}">
                     <span class="icon">
                       <i class="fas fa-user-plus"></i>
@@ -66,6 +69,7 @@
                       Unete
                     </span>
                   </a>
+                -->
                 </p>
               @else
                 <div class="navbar-item has-dropdown is-hoverable">

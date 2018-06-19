@@ -40,7 +40,7 @@ class ArticleController extends Controller{
     return view('articles.todos', ['articles' => $articles, 'user' => $user]);
   }
 
-  public function article($articulo){
+  public function article($articulo, $user_code = null){
     $very = Auth::check();
     if($very){
       $user = Auth::user();
@@ -50,6 +50,22 @@ class ArticleController extends Controller{
     $article = Article::find($articulo);
     $article->seen += 1;
     $article->save();
+    if ($user_code) {
+      $id = base64_decode($user_code);
+      $id = explode('_', $id);
+      $id_user = $id[0];
+      if (!Link::where('article', $article->id)->where('user', $id_user)->first()) {
+        Link::create([
+          'article' => $article->id,
+          'user' => $id_user,
+          'opened' => 1
+        ]);
+      } else {
+        $link = Link::where('article', $article->id)->where('user', $id_user)->first();
+        $link->opened += 1;
+        $link->save();
+      }
+    }
     return view('articles.showarticle')->with('article', $article);
   }
 
@@ -161,6 +177,8 @@ class ArticleController extends Controller{
     if ($user != "") {
       $data_metrics = $this->getMetricsArticle($user, $article);
       $a["social_red_data"] = $data_metrics;
+      $code = base64_encode($user->id . "_" . env('APP_KEY'));
+      $a["url"] = "https://www.accioncolombia.com.co/articulo/" . $article->id . "/" . $code;
     }
 
     array_push($data, $a);
@@ -213,6 +231,8 @@ class ArticleController extends Controller{
       if ($user != "") {
         $data_metrics = $this->getMetricsArticle($user, $article);
         $data["social_red_data"] = $data_metrics;
+        $code = base64_encode($user->id . "_" . env('APP_KEY'));
+        $data["url"] = "https://www.accioncolombia.com.co/articulo/" . $article->id . "/" . $code;
       }
 
       return response()->json([

@@ -22,7 +22,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/articulos', 'ArticleController@todos');
-Route::get('/articulo/{articulo}', 'ArticleController@article');
+Route::get('/articulo/{articulo}/{user_code?}', 'ArticleController@article');
 Route::get('/articulo/{articulo}/{user}/{origen}', 'ArticleController@registro');
 
 //Perfil y configuración

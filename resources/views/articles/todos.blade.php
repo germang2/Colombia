@@ -6,15 +6,16 @@
       <div class="card">
         <div class="card-image">
           <figure class="image is-2by1">
-            <img src="{{asset('im/art/'.$article->id.'/portada.jpg')}}">
+            <img src="https://img.youtube.com/vi/{{$article->video}}/mqdefault.jpg">
+            
           </figure>
         </div>
         <div class="card-content">
           <div class="content">
             <strong>
-              <h6 class="title is-6">{{ $article->name }}</h6>
+              <h6 class="title is-6">{{ $article->title }}</h6>
             </strong>
-            <time datetime="2016-1-1">{{ $article->created_at }}</time>
+            <time datetime="2016-1-1">{{ $article->date }}</time>
           </div>
         </div>
         <footer class="card-footer">

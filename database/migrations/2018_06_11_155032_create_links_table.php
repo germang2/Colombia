@@ -17,8 +17,8 @@ class CreateLinksTable extends Migration
             $table->increments('id');
             $table->integer('article')->unsigned();
             $table->integer('user')->unsigned();
-            $table->ipAddress('visitor');
-            $table->integer('origin');
+            $table->ipAddress('visitor')->nullable();
+            $table->integer('opened')->default(0);
             $table->foreign('user')->references('id')->on('users');
             $table->foreign('article')->references('id')->on('articles');
             $table->timestamps();
